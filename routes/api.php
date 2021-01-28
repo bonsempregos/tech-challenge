@@ -22,5 +22,8 @@ Route::resources([
     'genres' => GenreController::class,
     'movies' => MovieController::class,
     'actors' => ActorController::class,
+    'movie-roles' => MovieRoleController::class,
 ]);
+
+Route::get('/actors/{actor}/movies', 'ActorController@movies')->name('actors.movies');
 

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Traits\HasFetchAllRenderCapabilities;
-use App\Http\Requests\ActorRequest;
-use App\Models\Actor;
+use App\Http\Requests\MovieRoleRequest;
+use App\Models\MovieRole;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ActorController extends Controller
+class MovieRoleController extends Controller
 {
 
     use HasFetchAllRenderCapabilities;
@@ -20,7 +20,7 @@ class ActorController extends Controller
      */
     public function index(Request $request)
     {
-        $this->setGetAllBuilder(Actor::query());
+        $this->setGetAllBuilder(MovieRole::query());
         $this->setGetAllOrdering('name', 'asc');
         $this->parseRequestConditions($request);
         return new ResourceCollection($this->getAll()->paginate());
@@ -33,63 +33,50 @@ class ActorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ActorRequest $request)
+    public function store(MovieRoleRequest $request)
     {
-        $actor = new Actor($request->validated());
-        $actor->save();
+        $movieRole = new MovieRole($request->validated());
+        $movieRole->save();
 
-        return new \App\Http\Resources\Actor($actor);
+        return new \App\Http\Resources\MovieRole($movieRole);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Actor  $actor
+     * @param  \App\MovieRole  $movieRole
      * @return \Illuminate\Http\Response
      */
-    public function show(Actor $actor)
+    public function show(MovieRole $movieRole)
     {
-        return new \App\Http\Resources\Actor($actor);
+        return new \App\Http\Resources\MovieRole($movieRole);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Actor  $actor
+     * @param  \App\MovieRole  $movieRole
      * @return \Illuminate\Http\Response
      */
-    public function update(Actor $actor, ActorRequest $request)
+    public function update(MovieRole $movieRole, MovieRoleRequest $request)
     {
-        $actor->fill($request->validated());
-        $actor->save();
+        $movieRole->fill($request->validated());
+        $movieRole->save();
 
-        return new \App\Http\Resources\Actor($actor);
+        return new \App\Http\Resources\MovieRole($movieRole);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Actor  $actor
+     * @param  \App\MovieRole  $movieRole
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Actor $actor)
+    public function destroy(MovieRole $movieRole)
     {
-        $actor->delete();
+        $movieRole->delete();
 
         return response()->noContent();
     }
-
-
-    /**
-     * Display the specified Actor Movies.
-     *
-     * @param  \App\Actor  $actor
-     * @return \Illuminate\Http\Response
-     */
-    public function movies(Actor $actor)
-    {
-        return new \App\Http\Resources\Actor($actor->movies->unique());
-    }
-
 }

@@ -5,7 +5,8 @@ namespace App\Models;
 use App\Models\Traits\PrimaryAsUuid;
 use Illuminate\Database\Eloquent\Model;
 
-class Actor extends Model
+
+class MovieRole extends Model
 {
     use PrimaryAsUuid;
 
@@ -15,9 +16,5 @@ class Actor extends Model
 
     protected $keyType = 'string';
 
-    protected $fillable = ['name', 'bio', 'born_at'];
-
-    public function movies(){
-        return $this->belongsToMany(\App\Models\Movie::class, \App\Models\MovieRole::class);
-    }
+    protected $fillable = ['name', 'movie_id', 'actor_id'];
 }

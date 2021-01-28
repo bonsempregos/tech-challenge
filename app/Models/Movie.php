@@ -17,4 +17,8 @@ class Movie extends Model
     protected $keyType = 'string';
 
     protected $fillable = ['name', 'year', 'synopsis', 'runtime', 'released_at', 'cost'];
+
+    public function actors(){
+        return $this->belongsToMany(\App\Models\Actor::class, \App\Models\MovieRole::class);
+    }
 }
