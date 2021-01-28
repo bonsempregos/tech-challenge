@@ -18,6 +18,6 @@ class Actor extends Model
     protected $fillable = ['name', 'bio', 'born_at'];
 
     public function movies(){
-        return $this->belongsToMany(\App\Models\Movie::class, \App\Models\MovieRole::class);
+        return $this->belongsToMany(\App\Models\Movie::class, \App\Models\MovieRole::class)->withTimestamps()->withPivot('name');
     }
 }
