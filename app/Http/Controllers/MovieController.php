@@ -6,7 +6,7 @@ use App\Http\Controllers\Traits\HasFetchAllRenderCapabilities;
 use App\Http\Requests\MovieRequest;
 use App\Models\Movie;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Http\Resources\MovieCollection;
 
 class MovieController extends Controller
 {
@@ -23,7 +23,7 @@ class MovieController extends Controller
         $this->setGetAllBuilder(Movie::query());
         $this->setGetAllOrdering('name', 'asc');
         $this->parseRequestConditions($request);
-        return new ResourceCollection($this->getAll()->paginate());
+        return new MovieCollection($this->getAll()->paginate());
     }
 
 
