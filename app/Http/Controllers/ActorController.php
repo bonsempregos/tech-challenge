@@ -6,7 +6,11 @@ use App\Http\Controllers\Traits\HasFetchAllRenderCapabilities;
 use App\Http\Requests\ActorRequest;
 use App\Models\Actor;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Http\Resources\ActorCollection;
+use \App\Http\Resources\MovieCollection;
+use \App\Http\Resources\Actor as ActorResource;
+use \App\Http\Resources\Genre as GenreResource;
+
 
 class ActorController extends Controller
 {
@@ -23,7 +27,7 @@ class ActorController extends Controller
         $this->setGetAllBuilder(Actor::query());
         $this->setGetAllOrdering('name', 'asc');
         $this->parseRequestConditions($request);
-        return new ResourceCollection($this->getAll()->paginate());
+        return new ActorCollection($this->getAll()->paginate());
     }
 
 
@@ -38,7 +42,7 @@ class ActorController extends Controller
         $actor = new Actor($request->validated());
         $actor->save();
 
-        return new \App\Http\Resources\Actor($actor);
+        return new ActorResource($actor);
     }
 
     /**
@@ -49,7 +53,7 @@ class ActorController extends Controller
      */
     public function show(Actor $actor)
     {
-        return new \App\Http\Resources\Actor($actor);
+        return new ActorResource($actor);
     }
 
     /**
@@ -64,7 +68,7 @@ class ActorController extends Controller
         $actor->fill($request->validated());
         $actor->save();
 
-        return new \App\Http\Resources\Actor($actor);
+        return new ActorResource($actor);
     }
 
     /**
@@ -89,7 +93,18 @@ class ActorController extends Controller
      */
     public function movies(Actor $actor)
     {
-        return new \App\Http\Resources\Actor($actor->movies->unique());
+        return new MovieCollection($actor->movies->unique());
+    }
+
+    /**
+     * Display the specified Actor Movies.
+     *
+     * @param  \App\Actor  $actor
+     * @return \Illuminate\Http\Response
+     */
+    public function favouriteGenre(Actor $actor)
+    {
+        return new GenreResource($actor->genres()->groupBy('name')->max()->first());
     }
 
 }

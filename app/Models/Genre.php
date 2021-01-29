@@ -16,4 +16,8 @@ class Genre extends Model
     protected $keyType = 'string';
 
     protected $fillable = ['name'];
+
+    public function movie(){
+        return $this->belongsTo(\App\Models\Movie::class);
+    }
 }

@@ -26,4 +26,6 @@ Route::resources([
 ]);
 
 Route::get('/actors/{actor}/movies', 'ActorController@movies')->name('actors.movies');
+Route::get('/actors/{actor}/favourite-genre', 'ActorController@favouriteGenre')->name('actors.fav');
+
 

@@ -21,4 +21,8 @@ class Movie extends Model
     public function actors(){
         return $this->belongsToMany(\App\Models\Actor::class, \App\Models\MovieRole::class)->withTimestamps()->withPivot('name');
     }
+
+    public function genres(){
+        return $this->belongsToMany(\App\Models\Genre::class, \App\Models\GenreMovie::class)->withTimestamps();
+    }
 }
