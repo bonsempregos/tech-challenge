@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Http\Controllers\Traits\HasFetchAllRenderCapabilities;
 use App\Http\Requests\GenreRequest;
 use App\Models\Genre;
